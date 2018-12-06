@@ -9,8 +9,6 @@ const byte sensorchuva = 2;
 const byte sensorumid = A0;
 short int prob = -1;//variável na qual será armazenado, posteriormente, o valor da probabilidade de chuva
 
-//prox slide
-
 void setup() {
   pinMode(sensorumid,INPUT); 
   pinMode(sensorchuva,INPUT);
@@ -20,20 +18,15 @@ void setup() {
   while(prob == -1) //o laço é encerrado quando existe uma probabilidade de chuva
   prob = ler_probabilidade();
 }
+
 int ler_probabilidade()//função que obtém o valor da probabilidade via Serial
 {
   int p = -1;
-  for(byte i=1;i<=3;i++)//laço executado três vezes
-  {                     //para obter centena, dezena e unidade
-    if(Serial.available())
-      p = p + (Serial.read() - 48)*pow(10,2-i);//a potência diminui seu expoente
-  }                                            //conforme o índice aumenta, -48 pois é o valor real do numero em relação ao seu valor na ASCII
-  if(p!=-1) //como a variável foi inicializada com o valor -1, é necessário
-  p++;      //incrementá-la, mas só se for alterada
+  if(Serial.available())
+      p = Serial.parseInt();
+  }                                        
   return p; //se for incrementada sem alterações comprometerá o laço
 }
-
-//prox slide
 
 int chovendo()//função que identifica a presença de chuva
 {
@@ -58,8 +51,6 @@ int ler_umidade()//função que converte o retorno do sensor de umidade para %
 }//converte o intervalo do sensor para porcentagem
 //o sensor retorna o valor máximo quando a umidade é mínima
 
-//prox slide
-
 void loop() {
   short int umidade = ler_umidade();
   if(chovendo()==1) //único comando executado durante a chuva
@@ -82,8 +73,6 @@ void loop() {
     {
     digitalWrite(rele,LOW);//garantia para não irrigar de forma alguma se a umidade estiver acima do ideal
     }
-
-    //prox slide
     
     if(umidade>minimo && umidade<ideal)
     { //cálculo da umidade a ser mantida, de acordo com a probabilidade de chuva
