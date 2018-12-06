@@ -1,6 +1,7 @@
 /* The idea of this project is to unify irrigation and weather forecast. The control of humidity is made according to the rain probability:
 if the chances are high, the humidity is maintained at a low level so that the water from the rain elevates the humidity to its optimal
-level. Of course this is just an idea for now: we didn't obtain actual weather forecast data and didn't do experimental tests. */
+level. Of course this is just an idea for now: we didn't obtain actual weather forecast data and didn't do experimental tests.
+The forecast data would be obtained from a ESP-01 connected to the internet, from theweatherchannel.com's API for forecasts.*/
 //declaração das variáveis
 const byte minimo = 20; //valores hipotéticos de mínimo e ideal
 const byte ideal = 50; 
